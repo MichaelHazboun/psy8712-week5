@@ -11,3 +11,14 @@ Bnotes_tbl <- read_tsv("../data/Bnotes.txt",col_names = T) #wanted to be fancy a
 # Data Cleaning
 Aclean_tbl <- Adata_tbl %>%
   separate(qs, into=paste0("q",1:5)) %>% #i feel like this technically is two verbs/commands in one line (seperate & paste0)
+  mutate(datadate=mdy_hms(datadate)) %>%
+  mutate(across(starts_with("q"),as.integer)) %>%
+  left_join(Anotes_tbl,by="parnum") %>%
+  filter(is.na(notes))
+ABclean_tbl <- Bdata_tbl %>%
+  mutate(datadate=mdy_hms(datadate)) %>%
+  mutate(across(q1:q10,as.integer)) %>% #thought I'd do this one slightly differently for practice
+  left_join(Bnotes_tbl,by="parnum") %>% 
+  filter(is.na(notes)) %>%
+  bind_rows(Aclean_tbl, .id= "lab") %>%
+  select(-notes)
