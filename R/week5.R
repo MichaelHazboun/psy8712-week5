@@ -3,3 +3,6 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(tidyverse)
 
 # Data Import
+Adata_tbl <- read_delim("../data/Aparticipants.dat", delim = "-", col_names = c("casenum", "parnum","stimver", "datadate", "qs"))
+Anotes_tbl <-read_csv("../data/Anotes.csv", col_names = T)
+Bdata_tbl <- read_delim("../data/Bparticipants.dat", col_names = c("casenum", "parnum","stimver", "datadate", paste0("q", 1:10)))
