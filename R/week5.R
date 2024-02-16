@@ -5,4 +5,9 @@ library(tidyverse)
 # Data Import
 Adata_tbl <- read_delim("../data/Aparticipants.dat", delim = "-", col_names = c("casenum", "parnum","stimver", "datadate", "qs"))
 Anotes_tbl <-read_csv("../data/Anotes.csv", col_names = T)
-Bdata_tbl <- read_delim("../data/Bparticipants.dat", col_names = c("casenum", "parnum","stimver", "datadate", paste0("q", 1:10)))
+Bdata_tbl <- read_delim("../data/Bparticipants.dat", delim = "\t", col_names = c("casenum", "parnum","stimver", "datadate", paste0("q", 1:10))) #I had to chatgpt the \t for tab seperated values, I should have done it with read_tsv but it's fine
+Bnotes_tbl <- read_tsv("../data/Bnotes.txt",col_names = T) #wanted to be fancy and different
+
+# Data Cleaning
+Aclean_tbl <- Adata_tbl %>%
+  separate(qs, into=paste0("q",1:5)) %>% #i feel like this technically is two verbs/commands in one line (seperate & paste0)
