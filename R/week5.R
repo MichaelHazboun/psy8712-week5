@@ -14,7 +14,7 @@ Aclean_tbl <- Adata_tbl %>%
   mutate(datadate=mdy_hms(datadate)) %>%
   mutate(across(starts_with("q"), function(x) as.integer(x))) %>% # I first did it like this,mutate(across(starts_with("q"), as.integer)), I got the right answer, but it's not the way we talked about it in class, is it right?
   left_join(Anotes_tbl,by="parnum") %>%
-  filter(is.na(notes))
+  filter(is.na(notes)) #start using table, good for double checking
 ABclean_tbl <- Bdata_tbl %>%
   mutate(datadate=mdy_hms(datadate)) %>%
   mutate(across(q1:q10, function(x) as.integer(x))) %>% #I also did this the first time like this:mutate(across(q1:q10,as.integer)). got the same answer,but unsure if we're supposed to do it that way or not.
